@@ -6,13 +6,14 @@ from py_ms_cognitive_ml import PyMsCognitiveImageSearch
 # Settings
 search_terms = ["cats", "dogs", "penguins"]
 serach_quota_per_term = 100
+output_folder = "output"
 api_key = 'INSERT_YOUR_API_KEY_HERE'
 
 results = []
 total_downloads = 0
 
-if not os.path.exists("output"):
-    os.mkdir("output")
+if not os.path.exists(output_folder):
+    os.mkdir(output_folder)
 
 # Main
 for search_term in search_terms:
@@ -22,8 +23,8 @@ for search_term in search_terms:
     result_list = search_service.search_all(quota=serach_quota_per_term)
 
     # Scrape images
-    if not os.path.exists("output/" + str(search_term)):
-        os.mkdir("output/" + str(search_term))
+    if not os.path.exists(output_folder + "/" + str(search_term)):
+        os.mkdir(output_folder + "/" + str(search_term))
 
     print("\nDownloading images for term: '" + str(search_term) + "'")
 
@@ -40,7 +41,7 @@ for search_term in search_terms:
 
                 if image_file.status_code == 200:
                     if result_list[i].extension != "unknown":
-                        with open("output/" + search_term + "/" + str(i) + "." + result_list[i].extension, 'wb') as f:
+                        with open(output_folder + "/" + search_term + "/" + str(i) + "." + result_list[i].extension, 'wb') as f:
                             f.write(image_file.content)
 
                         urls.append(result_list[i].url)
