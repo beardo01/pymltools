@@ -3,4 +3,4 @@ chardet==3.0.4
 idna==2.6
 py-ms-cognitive-ml==0.0.2
 requests>=2.20.0
-urllib3==1.22
+urllib3>=1.24.2
